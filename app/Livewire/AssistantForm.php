@@ -89,6 +89,13 @@ class AssistantForm extends Component implements HasForms
         $this->updateRfid();
     }
 
+    public function cancel(): void
+    {
+        $this->redirectRoute('filament.admin.resources.assistants.index');
+        $this->reset(['data']);
+        Rfid::truncate();
+    }
+
     public function render(): View
     {
         return view('livewire.assistant-form');

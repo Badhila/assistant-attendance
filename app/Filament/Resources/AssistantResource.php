@@ -6,6 +6,7 @@ use App\Filament\Resources\AssistantResource\Pages;
 use App\Filament\Resources\AssistantResource\RelationManagers;
 use App\Models\Assistant;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -25,7 +26,21 @@ class AssistantResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Grid::make()
+                    ->columns(1)
+                    ->schema([
+                        TextInput::make('rfid')
+                            ->label('RFID')
+                            ->placeholder('Tempelkan Kartu pada perangkat')
+                            ->readonly()
+                            ->required(),
+                        TextInput::make('code')
+                            ->label('Code')
+                            ->required(),
+                        TextInput::make('name')
+                            ->label('Name')
+                            ->required(),
+                    ]),
             ]);
     }
 
