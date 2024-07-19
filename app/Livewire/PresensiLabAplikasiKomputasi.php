@@ -11,7 +11,7 @@ use App\View\Components\AppLayout;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
-class PresensiLabPemrograman extends Component
+class PresensiLabAplikasiKomputasi extends Component
 {
     public $rfid = '';
     public $name = '';
@@ -32,7 +32,7 @@ class PresensiLabPemrograman extends Component
     {
         return Schedule::with('group', 'period', 'period.day', 'room')
             ->whereHas('room', function ($query) {
-                $query->where('name', 'Pemrograman');
+                $query->where('name', 'Aplikasi Komputasi');
             })
             ->whereHas('period.day', function ($query) {
                 $query->where('name', now()->format('l'));
@@ -51,7 +51,7 @@ class PresensiLabPemrograman extends Component
         $latestRfid = Rfid::latest()->first();
         $currentDay = now()->format('l');
         $currentTime = now()->format('H:i:s');
-        $room = 'Pemrograman';
+        $room = 'Aplikasi Komputasi';
 
         $ongoingPeriod = Schedule::with('group', 'period', 'period.day', 'room')
             ->whereHas('room', function ($query) use ($room) {
@@ -156,7 +156,7 @@ class PresensiLabPemrograman extends Component
 
     public function render()
     {
-        return view('livewire.presensi-lab-pemrograman')
-            ->layout(AppLayout::class, ['title' => 'Presensi Lab Pemrograman']);
+        return view('livewire.presensi-lab-aplikasi-komputasi')
+        ->layout(AppLayout::class, ['title' => 'Presensi Lab Aplikasi Komputasi']);
     }
 }
