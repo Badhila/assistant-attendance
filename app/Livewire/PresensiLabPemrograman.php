@@ -44,6 +44,20 @@ class PresensiLabPemrograman extends Component
             ->first();
     }
 
+    #[Computed()]
+    public function assistants()
+    {
+        return AssistantMeet::with('assistant', 'meet', 'meet.period')
+            ->whereHas('meet', function ($query) {
+                $query->where('date', now()->format('Y-m-d'));
+            })
+            ->whereHas('meet.period', function ($query) {
+                $query->where('start', '<=', now()->format('H:i:s'))
+                    ->where('end', '>=', now()->format('H:i:s'));
+            })
+            ->get();
+    }
+
     public function updateRfid()
     {
         $this->resetValues();

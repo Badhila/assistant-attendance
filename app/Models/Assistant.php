@@ -15,4 +15,9 @@ class Assistant extends Model
     {
         return $this->hasMany(Presence::class, 'rfid', 'rfid');
     }
+
+    public function meets()
+    {
+        return $this->hasMany(Meet::class);
+    }
 }

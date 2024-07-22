@@ -19,4 +19,9 @@ class Meet extends Model
         return $this->belongsToMany(Assistant::class, 'assistant_meets')
             ->withTimestamps();
     }
+
+    public function period()
+    {
+        return $this->belongsTo(Period::class);
+    }
 }
