@@ -7,6 +7,8 @@ use App\Filament\Resources\MeetResource\RelationManagers;
 use App\Filament\Resources\MeetResource\RelationManagers\AssistantsRelationManager;
 use App\Models\Group;
 use App\Models\Meet;
+use App\Models\Period;
+use App\Models\Room;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -34,6 +36,18 @@ class MeetResource extends Resource
                     )
                     ->required()
                     ->label('Group'),
+                Select::make('period_id')
+                    ->options(
+                        Period::all()->pluck('code', 'id')
+                    )
+                    ->required()
+                    ->label('Period'),
+                Select::make('room_id')
+                    ->options(
+                        Room::all()->pluck('name', 'id')
+                    )
+                    ->required()
+                    ->label('Room'),
                 TextInput::make('meet_count')
                     ->required()
                     ->label('Meet Count'),
