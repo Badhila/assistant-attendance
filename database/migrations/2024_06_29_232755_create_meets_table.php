@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Group;
+use App\Models\Period;
+use App\Models\Room;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,6 +16,8 @@ return new class extends Migration {
         Schema::create('meets', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Group::class);
+            $table->foreignIdFor(Period::class);
+            $table->foreignIdFor(Room::class);
             $table->string('meet_count');
             $table->date('date');
             $table->timestamps();

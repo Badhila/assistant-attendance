@@ -24,4 +24,9 @@ class Meet extends Model
     {
         return $this->belongsTo(Period::class);
     }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }
