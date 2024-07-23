@@ -17,6 +17,7 @@ class PresensiLabAplikasiKomputasi extends Component
     public $name = '';
     public $rfidExists = null;
     public $hasAttended = false;
+    public $alreadyAttendOnOtherRoom = false;
     public $roomFull = false;
     public $ongoingPeriod = null;
 
@@ -42,6 +43,23 @@ class PresensiLabAplikasiKomputasi extends Component
                     ->where('end', '>=', now()->format('H:i:s'));
             })
             ->first();
+    }
+
+    #[Computed()]
+    public function assistants()
+    {
+        return AssistantMeet::with('assistant', 'meet', 'meet.period', 'meet.room')
+            ->whereHas('meet', function ($query) {
+                $query->where('date', now()->format('Y-m-d'));
+            })
+            ->whereHas('meet.period', function ($query) {
+                $query->where('start', '<=', now()->format('H:i:s'))
+                    ->where('end', '>=', now()->format('H:i:s'));
+            })
+            ->whereHas('meet.room', function ($query) {
+                $query->where('name', 'Aplikasi Komputasi');
+            })
+            ->get();
     }
 
     public function updateRfid()
@@ -93,6 +111,7 @@ class PresensiLabAplikasiKomputasi extends Component
         $meet = Meet::firstOrCreate([
             'group_id' => $ongoingPeriod->group_id,
             'period_id' => $ongoingPeriod->period_id,
+            'room_id' => $ongoingPeriod->room_id,
             'date' => now()->format('Y-m-d'),
         ], [
             'meet_count' => $newMeetCount
@@ -116,6 +135,20 @@ class PresensiLabAplikasiKomputasi extends Component
 
         if ($alreadyAttended) {
             $this->hasAttended = true;
+            Rfid::truncate();
+            return;
+        }
+
+        $alreadyAttendOnOtherRoom = AssistantMeet::where('assistant_id', $assistant->id)
+            ->whereHas('meet', function ($query) use ($ongoingPeriod) {
+                $query->where('date', now()->format('Y-m-d'))
+                    ->where('room_id', '!=', $ongoingPeriod->room_id);
+            })
+            ->first();
+
+        if ($alreadyAttendOnOtherRoom) {
+            $this->rfidExists = true;
+            $this->alreadyAttendOnOtherRoom = true;
             Rfid::truncate();
             return;
         }

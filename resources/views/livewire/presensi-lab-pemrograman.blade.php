@@ -6,29 +6,29 @@
         <div wire:poll="updateRfid" class="max-w-full mb-4 mx-auto bg-white shadow-lg rounded-lg border border-gray-100 overflow-hidden dark:bg-gray-800 dark:border-gray-600">
             <div class="p-4">
                 @if (is_null($rfidExists))
-                    <p class="p-4 text-4xl bg-gray-100 border border-gray-200 rounded-lg">Scan RFID Anda untuk melakukan absensi.</p>
+                    <p class="p-4 text-4xl bg-gray-100 border border-gray-200 rounded-lg text-center">Scan RFID Anda untuk melakukan absensi.</p>
                 @elseif (!$rfidExists)
-                    <div class="p-4 bg-red-100 border border-red-200 rounded-lg">
+                    <div class="p-4 text-4xl bg-red-100 border border-red-200 rounded-lg text-center">
                         <span class="text-red-800">RFID Anda belum terdaftar.</span>
                     </div>
                 @elseif (is_null($ongoingPeriod))
-                    <div class="p-4 bg-red-100 border border-red-200 rounded-lg text-center">
+                    <div class="p-4 text-4xl bg-red-100 border border-red-200 rounded-lg text-center">
                         <span class="text-red-800 text-2xl">Waktu absensi belum dimulai.</span>
                     </div>
                 @elseif ($hasAttended)
-                    <div class="p-4 bg-yellow-100 border border-yellow-200 rounded-lg">
+                    <div class="p-4 text-4xl bg-yellow-100 border border-yellow-200 rounded-lg text-center">
                         <span class="text-yellow-800">Anda sudah absen hari ini.</span>
                     </div>
                 @elseif ($roomFull)
-                    <div class="p-4 bg-red-100 border border-red-200 rounded-lg">
+                    <div class="p-4 text-4xl bg-red-100 border border-red-200 rounded-lg text-center">
                         <span class="text-red-800">Assisten sudah mencapai batas maksimal ruangan ini.</span>
                     </div>
                 @elseif ($name)
-                    <div class="p-4 bg-blue-100 border border-blue-200 rounded-lg">
+                    <div class="p-4 text-4xl bg-blue-100 border border-blue-200 rounded-lg text-center">
                         <span class="text-blue-800">Selamat Datang, <strong>{{ $name }}</strong>!</span>
                     </div>
                 @else
-                    <p class="p-4 bg-gray-100 border border-gray-200 rounded-lg">Scan RFID Anda untuk melakukan absensi.</p>
+                    <p class="p-4 text-4xl bg-gray-100 border border-gray-200 rounded-lg text-center">Scan RFID Anda untuk melakukan absensi.</p>
                 @endif
             </div>
         </div>
@@ -49,12 +49,27 @@
                 </div>
             @endif
             <div class="grid grid-cols-1 rounded-lg border border-gray-100 shadow dark:bg-gray-800 dark:border-gray-600">
-                <div class="flex flex-col p-6 justify-center text-center">
-                    @forelse ($this->assistants as $assistant)
-                        <li>{{ $assistant->assistant->name }}</li>
-                    @empty
-                        <p class="dark:text-white">Tidak ada asisten yang absen hari ini.</p>
-                    @endforelse
+                <div class="flex flex-col p-6 text-center">
+                    <table class="w-full text-sm text-left border rtl:text-right text-gray-500 dark:text-gray-400 dark:border-gray-600">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="text-2xl dark:text-white px-6">
+                                    List Presensi
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($this->assistants as $assistant)
+                                <tr class="bg-white border-b text-lg dark:text-white dark:bg-gray-800 dark:border-gray-700">
+                                    <td class="px-6 py-4">{{ $assistant->assistant->name }}</td>
+                                </tr>
+                            @empty
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <td class="px-6 py-4">No assistant available</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
