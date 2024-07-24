@@ -65,6 +65,18 @@ class MeetResource extends Resource
                     ->label('Group')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('period.start')
+                    ->label('Start')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('period.end')
+                    ->label('End')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('room.name')
+                    ->label('Room')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('meet_count')
                     ->label('Meet Count')
                     ->searchable()
