@@ -100,6 +100,8 @@ class PresensiLabPemrograman extends Component
         $this->ongoingPeriod = $ongoingPeriod;
 
         $totalMeetCount = Meet::where('group_id', $ongoingPeriod->group_id)
+            ->where('period_id', $ongoingPeriod->period_id)
+            ->where('room_id', $ongoingPeriod->room_id)
             ->count('meet_count');
 
         $newMeetCount = $totalMeetCount + 1;
