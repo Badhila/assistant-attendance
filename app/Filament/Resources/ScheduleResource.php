@@ -56,6 +56,9 @@ class ScheduleResource extends Resource
                 TextColumn::make('group.name')
                     ->searchable()
                     ->label('Group'),
+                TextColumn::make('room.name')
+                    ->searchable()
+                    ->label('Room'),
                 TextColumn::make('period.start')
                     ->searchable()
                     ->label('Start'),
