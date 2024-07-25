@@ -27,17 +27,11 @@ class GroupResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->live()
                     ->label('Name')
                     ->required()
                     ->placeholder('Enter the group name')
-                    ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) {
-                        if ($operation == 'edit') {
-                            return;
-                        }
-
-                        $set('slug', Str::slug($state));
-                    }),
+                    ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) { if ($operation == 'edit') { return; } $set('slug', Str::slug($state)); })
+                    ->lazy(),
                 TextInput::make('slug')
                     ->label('Slug')
                     ->readOnly()

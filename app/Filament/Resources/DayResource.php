@@ -7,6 +7,7 @@ use App\Filament\Resources\DayResource\RelationManagers;
 use App\Filament\Resources\DayResource\RelationManagers\PeriodsRelationManager;
 use App\Models\Day;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -32,10 +33,19 @@ class DayResource extends Resource
                     ->unique()
                     ->placeholder('Enter the day code')
                     ->autofocus(),
-                TextInput::make('name')
+                Select::make('name')
                     ->label('Name')
                     ->required()
-                    ->placeholder('Enter the day name'),
+                    ->placeholder('Select the day name')
+                    ->options([
+                        'Sunday' => 'Sunday',
+                        'Monday' => 'Monday',
+                        'Tuesday' => 'Tuesday',
+                        'Wednesday' => 'Wednesday',
+                        'Thursday' => 'Thursday',
+                        'Friday' => 'Friday',
+                        'Saturday' => 'Saturday',
+                    ]),
             ]);
     }
 

@@ -7,6 +7,7 @@ use App\Filament\Resources\RoomResource\Pages;
 use App\Filament\Resources\RoomResource\RelationManagers;
 use App\Models\Room;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,21 +27,54 @@ class RoomResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('code')
+                Select::make('code')
                     ->label('Code')
+                    ->options([
+                        'P' => 'P',
+                        'AK' => 'AK',
+                        'AP' => 'AP',
+                        'J' => 'J',
+                        'SI' => 'SI',
+                    ])
                     ->required()
-                    ->unique()
-                    ->placeholder('Enter the room code')
-                    ->autofocus(),
-                TextInput::make('name')
+                    ->placeholder('Select the room code')
+                    ->native(false),
+                Select::make('name')
                     ->label('Name')
+                    ->options([
+                        'Pemrograman' => 'Pemrograman',
+                        'Aplikasi Komputasi' => 'Aplikasi Komputasi',
+                        'Aplikasi Profesional' => 'Aplikasi Profesional',
+                        'Jaringan Komputer' => 'Jaringan Komputer',
+                        'Sistem Informasi' => 'Sistem Informasi',
+                    ])
                     ->required()
-                    ->placeholder('Enter the room name'),
-                TextInput::make('slots')
+                    ->placeholder('Select the room name')
+                    ->native(false),
+                Select::make('Slots')
                     ->label('Slots')
-                    ->type('number')
+                    ->options([
+                        '2' => '2',
+                        '4' => '4',
+                    ])
                     ->required()
-                    ->placeholder('Enter the number of slots'),
+                    ->placeholder('Select the number of slots')
+                    ->native(false),
+                // TextInput::make('code')
+                //     ->label('Code')
+                //     ->required()
+                //     ->unique()
+                //     ->placeholder('Enter the room code')
+                //     ->autofocus(),
+                // TextInput::make('name')
+                //     ->label('Name')
+                //     ->required()
+                //     ->placeholder('Enter the room name'),
+                // TextInput::make('slots')
+                //     ->label('Slots')
+                //     ->type('number')
+                //     ->required()
+                //     ->placeholder('Enter the number of slots'),
             ]);
     }
 
