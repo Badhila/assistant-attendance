@@ -1,9 +1,5 @@
 <?php
 
-use App\Http\Controllers\AssistantController;
-use App\Http\Controllers\RfidController;
-use App\Livewire\CreateAssistant;
-use App\Livewire\IncomingPresence;
 use App\Livewire\PresensiLabAplikasiKomputasi;
 use App\Livewire\PresensiLabAplikasiProfesional;
 use App\Livewire\PresensiLabJaringanKomputer;
@@ -20,7 +16,3 @@ Route::get('/aplikasi-komputasi', PresensiLabAplikasiKomputasi::class)->name('ap
 Route::get('/aplikasi-profesional', PresensiLabAplikasiProfesional::class)->name('aplikasi-profesional');
 Route::get('/jaringan-komputer', PresensiLabJaringanKomputer::class)->name('jaringan-komputer');
 Route::get('/sistem-informasi', PresensiLabSistemInformasi::class)->name('sistem-informasi');
-
-Route::get('/nokartu', [RfidController::class, 'nokartu']);
-
-Route::resource('/assistant', AssistantController::class);
