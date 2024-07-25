@@ -19,12 +19,4 @@ class RfidController extends Controller
 
         return response()->json(['success' => true]);
     }
-
-    public function nokartu()
-    {
-        $data = Rfid::all();
-        $cek = Rfid::all()->toArray();
-
-        return view('nokartu', compact('data', 'cek'));
-    }
 }
