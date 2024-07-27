@@ -14,4 +14,9 @@ class Room extends Model
         return $this->belongsToMany(Period::class, 'schedules')
             ->withTimestamps();
     }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
 }

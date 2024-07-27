@@ -20,7 +20,7 @@ class GroupResource extends Resource
 {
     protected static ?string $model = Group::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
 
     public static function form(Form $form): Form
     {
@@ -30,7 +30,9 @@ class GroupResource extends Resource
                     ->label('Name')
                     ->required()
                     ->placeholder('Enter the group name')
-                    ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) { if ($operation == 'edit') { return; } $set('slug', Str::slug($state)); })
+                    ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) {
+                        if ($operation == 'edit') {
+                            return; }$set('slug', Str::slug($state)); })
                     ->lazy(),
                 TextInput::make('slug')
                     ->label('Slug')

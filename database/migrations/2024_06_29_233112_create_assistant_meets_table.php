@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('assistant_meets', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->foreignIdFor(Assistant::class);
             $table->foreignIdFor(Meet::class);
             $table->integer('slot_used');

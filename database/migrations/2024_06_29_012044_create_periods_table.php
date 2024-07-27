@@ -12,7 +12,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('periods', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->foreignIdFor(Day::class);
             $table->string('code')->unique();
             $table->time('start');

@@ -14,7 +14,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('meets', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->foreignIdFor(Group::class);
             $table->foreignIdFor(Period::class);
             $table->foreignIdFor(Room::class);

@@ -24,7 +24,7 @@ class MeetResource extends Resource
 {
     protected static ?string $model = Meet::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
     public static function form(Form $form): Form
     {
