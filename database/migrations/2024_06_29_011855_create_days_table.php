@@ -12,8 +12,7 @@ return new class extends Migration {
     {
         Schema::create('days', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code')->unique();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

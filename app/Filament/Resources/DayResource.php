@@ -27,12 +27,6 @@ class DayResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('code')
-                    ->label('Code')
-                    ->required()
-                    ->unique()
-                    ->placeholder('Enter the day code')
-                    ->autofocus(),
                 Select::make('name')
                     ->label('Name')
                     ->required()
@@ -53,10 +47,6 @@ class DayResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('code')
-                    ->label('Code')
-                    ->searchable()
-                    ->sortable(),
                 TextColumn::make('name')
                     ->label('Name')
                     ->searchable()
