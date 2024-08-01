@@ -73,6 +73,21 @@ class AssistantForm extends Component implements HasForms
             return;
         }
 
+        $existingCode = Assistant::where('code', $data['code'])->first();
+
+        if ($existingCode) {
+            DB::table('rfids')->truncate();
+
+            $this->reset(['data']);
+
+            Notification::make()
+                ->title('Error')
+                ->body('Code already exists.')
+                ->warning()
+                ->send();
+            return;
+        }
+
         $record = Assistant::create($data);
 
         DB::table('rfids')->truncate();
