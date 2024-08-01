@@ -8,6 +8,7 @@ use App\Models\Meet;
 use App\Models\Rfid;
 use App\Models\Schedule;
 use App\View\Components\AppLayout;
+use Carbon\Carbon;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -50,12 +51,14 @@ class PresensiLabPemrograman extends Component
      */
     public function schedule()
     {
+        Carbon::setLocale('id');
+
         return Schedule::with('group', 'period', 'period.day', 'room')
             ->whereHas('room', function ($query) {
                 $query->where('name', 'Pemrograman');
             })
             ->whereHas('period.day', function ($query) {
-                $query->where('name', now()->format('l'));
+                $query->where('name', Carbon::now()->translatedFormat('l'));
             })
             ->whereHas('period', function ($query) {
                 $query->where('start', '<=', now()->format('H:i:s'))
@@ -106,7 +109,8 @@ class PresensiLabPemrograman extends Component
         $latestRfid = Rfid::latest()->first();
 
         // Get the current day and time
-        $currentDay = now()->format('l');
+        Carbon::setLocale('id');
+        $currentDay = Carbon::now()->translatedFormat('l');
         $currentTime = now()->format('H:i:s');
 
         // Set the room name

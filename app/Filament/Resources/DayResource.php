@@ -38,13 +38,13 @@ class DayResource extends Resource
                     ->required()
                     ->placeholder('Select the day name')
                     ->options([
-                        'Sunday' => 'Sunday',
-                        'Monday' => 'Monday',
-                        'Tuesday' => 'Tuesday',
-                        'Wednesday' => 'Wednesday',
-                        'Thursday' => 'Thursday',
-                        'Friday' => 'Friday',
-                        'Saturday' => 'Saturday',
+                        'Minggu' => 'Minggu',
+                        'Senin' => 'Senin',
+                        'Selasa' => 'Selasa',
+                        'Rabu' => 'Rabu',
+                        'Kamis' => 'Kamis',
+                        'Jumat' => 'Jumat',
+                        'Sabtu' => 'Sabtu',
                     ]),
             ]);
     }

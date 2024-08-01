@@ -8,6 +8,7 @@ use App\Models\Meet;
 use App\Models\Rfid;
 use App\Models\Schedule;
 use App\View\Components\AppLayout;
+use Carbon\Carbon;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -31,12 +32,13 @@ class PresensiLabSistemInformasi extends Component
     #[Computed()]
     public function schedule()
     {
+        Carbon::setLocale('id');
         return Schedule::with('group', 'period', 'period.day', 'room')
             ->whereHas('room', function ($query) {
                 $query->where('name', 'Sistem Informasi');
             })
             ->whereHas('period.day', function ($query) {
-                $query->where('name', now()->format('l'));
+                $query->where('name', now()->translatedFormat('l'));
             })
             ->whereHas('period', function ($query) {
                 $query->where('start', '<=', now()->format('H:i:s'))
@@ -67,7 +69,8 @@ class PresensiLabSistemInformasi extends Component
         $this->resetValues();
 
         $latestRfid = Rfid::latest()->first();
-        $currentDay = now()->format('l');
+        Carbon::setLocale('id');
+        $currentDay = now()->translatedFormat('l');
         $currentTime = now()->format('H:i:s');
         $room = 'Sistem Informasi';
 
